@@ -1,5 +1,12 @@
 class Solution:
     def interpret(self, command: str) -> str:
+        # one line solution 
+        return command.replace("()","o").replace("(al)","al")
+        
+        
+        
+        
+        '''
         string_length = len(command)
         string_output = ""
         for i in range(string_length):
@@ -14,3 +21,4 @@ class Solution:
                 else:
                     continue
         return string_output
+        '''
