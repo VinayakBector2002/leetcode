@@ -1,15 +1,22 @@
 class Solution:
     def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
-        nums_sort = nums.copy()
-        nums_sort.sort()
-        nums_sort.reverse()
-        Hash_map = {}
-        output=list()
-        length = len(nums_sort)
-        for i in range(length):
-            if nums_sort[i] in Hash_map:
-                Hash_map[nums_sort[i]]+=1
-            Hash_map[nums_sort[i]]=i
-        for i in range(length):
-            output.insert(i,(length - Hash_map[nums[i]] - 1))
+        HashMap = {}
+        sorted_nums = nums.copy()
+        sorted_nums.sort()
+        output = []
+        a = range(len(nums))
+        for i in a:
+            if ((i != 0) and (sorted_nums[i] == sorted_nums[i-1])):
+                continue
+            else:
+                HashMap[sorted_nums[i]] = i
+        
+        for i in range(len(nums)):
+            output.insert(i,HashMap.get(nums[i]))
+        
         return output
+        
+        
+        
+            
+        
