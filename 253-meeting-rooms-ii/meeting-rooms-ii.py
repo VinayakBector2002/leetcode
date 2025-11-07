@@ -5,12 +5,10 @@ class Solution:
         q = deque(intervals)
         count = 0
         while q:
-            print(count, q)
             start, end = q.popleft()
             temp_q = deque()
             count += 1
             for _ in range(len(q)):
-                print("here")
                 curr_s, curr_e = q.popleft()
                 if end <= curr_s:
                     start, end = curr_s, curr_e
