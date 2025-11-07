@@ -6,7 +6,6 @@
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         result = ListNode()
-        # result.next = ListNode()
         result_next = result
         carry = 0
         while l1 or l2:
