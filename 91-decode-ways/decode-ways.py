@@ -1,34 +1,3 @@
-'''
-Input: Given a string s containing only digits  int
-Output: return the number of ways to decode it int
-
-Summary 
-    - Encoding A -> 1, B -> 2 ...
-    - There are many different ways you can decode the message
-        - Given digit can be paired with the one after it to resolve
-
-
-0: 
-    1 -> A
-        1: 
-            1  -> A
-            11 -> K
-    11 -> K 
-        2:
-            1  -> A
-            10 -> K
-
-If the entire string cannot be decoded in any valid way, return 0.
-
-
-2 2 6
-  2 1
-6 -> 1
-26 -> 2 | 6 | -> 1
-    -> |26| -> 1
-2
-'''
-
 class Solution:
     def __init__(self):
         self.listOfNums = [str(i) for i in range(1, 27)]
@@ -49,6 +18,5 @@ class Solution:
                     dp[i] += dp[i + 2]
             elif s[i:i+2] in self.listOfNums:
                 dp[i] += 1
-            # dp[i] = count
         print(dp)
         return dp[0]
