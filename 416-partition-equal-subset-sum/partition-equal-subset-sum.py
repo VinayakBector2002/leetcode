@@ -10,7 +10,6 @@ class Solution:
             p1, p2 = partitions
 
             if index == n and p1 == p2:
-                print("Will return ")
                 return True
 
             if index >= n:
