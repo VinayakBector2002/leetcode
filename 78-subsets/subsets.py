@@ -7,7 +7,7 @@ class Solution:
 
         def helper(i: int):
             if i == n:
-                results.append(subset.copy())
+                results.append(subset[:])
                 return
             
             # choice
