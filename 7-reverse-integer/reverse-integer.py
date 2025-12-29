@@ -8,7 +8,6 @@ class Solution:
             stack.pop()
 
         if len(stack) == 0:
-            print(stack)
             return 0
         
         while stack and stack[-1] != "-":
