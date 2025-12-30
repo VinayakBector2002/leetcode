@@ -16,24 +16,22 @@ Naïve soln
 
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        invalidIdx = set()
-        groupedTrx = defaultdict(list) # name: (time, city, idx)
+        invalidTrxIdx = set()
+        nameToMetaData = defaultdict(list) # name: (idx, time, city)
+
 
         for idx, trx in enumerate(transactions):
-            name, time, amount, city = trx.split(",")
-            time, amount = int(time), int(amount)
-            
-            if amount > 1000:
-                invalidIdx.add(idx)
-            
-            for gTrx in groupedTrx[name]:
-                gTime, gCity, gIdx = gTrx
-                if gCity != city and abs(gTime - time) <= 60:
-                    invalidIdx.add(idx)
-                    invalidIdx.add(gIdx)
-            
-            groupedTrx[name].append((time, city, idx))
-        
-        return [transactions[i] for i in invalidIdx]
+            name, time, amt, city = trx.split(",")
+            if int(amt) > 1000:
+                invalidTrxIdx.add(idx)
+                
+            prevNamedTrx = nameToMetaData[name]
+            for pTrx in prevNamedTrx:
+                gIdx, gTime, gCity = pTrx
+                if gCity != city and abs(int(time) - int(gTime)) <= 60:
+                    invalidTrxIdx.add(gIdx)
+                    invalidTrxIdx.add(idx)
 
+            nameToMetaData[name].append((idx, time, city))
         
+        return [transactions[i] for i in invalidTrxIdx]
