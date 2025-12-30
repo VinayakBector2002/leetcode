@@ -1,21 +1,30 @@
 class UndergroundSystem:
-
     def __init__(self):
-        self.track = {} # id : (startStation, startTime)
-        self.avgTime = {} # (startStation,EndStation) : (totalTime, totalN)
+        # single responsibility
+        self.currentCustomers = {} # userId : (startionStart, startTime)
+        self.stationStats = {} # (stationStart, stationEnd) : (cumTime, cumCount)
+        
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.track[id] = (stationName, t)
+        if id in self.currentCustomers:
+            # this is invalid
+            return 
+        
+        self.currentCustomers[id] = (stationName, t)
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        startingStation, statingTime  = self.track[id]
-        key = (startingStation, stationName)
-        current = self.avgTime.get(key, (0,0))
-        self.avgTime[key] = (current[0] + (t - statingTime), current[1] + 1)
+        if id not in self.currentCustomers:
+            # this is invalid 
+            return 
+        startionStart, startTime = self.currentCustomers[id]
+        key = (startionStart, stationName)
+        currentStats = self.stationStats.get(key, (0,0))
+        self.stationStats[key] = (currentStats[0] + (t-startTime), currentStats[1] + 1)
+        del self.currentCustomers[id]
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        current = self.avgTime[(startStation, endStation)]
-        return float(current[0]) / current[1]
+        currentStats = self.stationStats[(startStation, endStation)]
+        return float(currentStats[0])/currentStats[1]
         
 
 
