@@ -45,20 +45,17 @@ class Solution:
                 stack.append(char)
                 continue
             # case where char == "]"
-            encodedString = []
+            substr = ""
             
             while stack and stack[-1] != "[":
-                encodedString.append(stack.pop())
+                substr = stack.pop() + substr
+
             # top of stack is open bracket [
             stack.pop()
-            encodedString[::-1]
-            k = []
+            k = ""
 
-            while stack and stack[-1] in list("0123456789"):
-                k.append(stack.pop())
-
-            k = int("".join(k[::-1]))
-            transformedString = k * encodedString
-            stack.extend(transformedString[::-1])
+            while stack and stack[-1].isdigit():
+                k = stack.pop() + k
+            stack.append(int(k) * substr)
         
         return "".join(stack)
