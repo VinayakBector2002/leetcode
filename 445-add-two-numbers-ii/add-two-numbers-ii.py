@@ -3,29 +3,31 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
 class Solution:
-    def createDeepStack(self, l1: Optional[ListNode]) -> List[ListNode]:
-        stack = []
+    def reverseDeep(self, l1: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
         current = l1
         while current:
-            stack.append(current)
-            current = current.next
-        return stack
+            temp = current.next
+            current.next = prev
+            prev,current = current, temp
+        return prev 
                 
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        l1_stack, l2_stack = self.createDeepStack(l1), self.createDeepStack(l2)
+        l1, l2 = self.reverseDeep(l1), self.reverseDeep(l2)
         last_node = None
         carry = 0
-        while l1_stack or l2_stack:
+        while l1 or l2:
             current_node = ListNode(val=carry, next=last_node)
 
-            if l1_stack:
-                l = l1_stack.pop()
-                current_node.val += l.val
+            if l1:
+                current_node.val += l1.val
+                l1 = l1.next
 
-            if l2_stack:
-                r = l2_stack.pop()
-                current_node.val += r.val
+            if l2:
+                current_node.val += l2.val
+                l2 = l2.next
             
             carry = current_node.val // 10
             current_node.val = current_node.val % 10
