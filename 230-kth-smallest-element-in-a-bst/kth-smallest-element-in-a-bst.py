@@ -9,6 +9,7 @@ class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         # Order traversal -> lit the arr in order 
         result, stack, current = [], [], root
+        # len condition is for early termination and rest for in order traversal 
         while current or stack or len(result) < k:
             # go as far left as possible 
             while current:
