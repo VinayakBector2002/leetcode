@@ -9,9 +9,31 @@ Task: Of triplets chosen from the array that can make
 '''
 
 class Solution:
+    # O(n^2)
+    # 2 pointer
+    def triangleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        n = len(nums)
+        count = 0
+        # 2, 2, 3, 4
+        for k in range(n - 1, 1, -1):
+            left, right = 0, k -1
+            while left < right:
+                currSum = nums[left] + nums[right]
+                reqSum = nums[k]
+                if currSum > reqSum:
+                    # valid pair found 
+                    count += (right - left)
+                    right -= 1
+                else:
+                    left += 1
+        
+        return count
+
+
 
     # On^2 log n
-    def triangleNumber(self, nums: List[int]) -> int:
+    def triangleNumber2(self, nums: List[int]) -> int:
         n = len(nums)
         nums.sort()
         count = 0
